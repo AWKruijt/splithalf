@@ -16,6 +16,7 @@
 #' @param compare1 specifies the first trial type to be compared (e.g. congruent trials)
 #' @param compare2 specifies the first trial type to be compared (e.g. incongruent trials)
 #' @param average use mean or median to calculate average scores?
+#' @param nDec number of decimals to return? - default is 2
 #' @return Returns a data frame containing permutation based split-half reliability estimates
 #' @return splithalf is the raw estimate of the bias index
 #' @return spearmanbrown is the spearman-brown corrected estimate of the bias index
@@ -45,7 +46,8 @@ splithalf <- function(data,
                       var.compare = "congruency",
                       compare1 = "Congruent",
                       compare2 = "Incongruent",
-                      average = "mean"
+                      average = "mean",
+                      nDec = 2
 )
 
 {
@@ -603,12 +605,12 @@ splithalf <- function(data,
       splithalf2 <- splithalf %>%
         dplyr::group_by(condition) %>%
         dplyr::summarise(n = mean(n),
-                         splithalf_estimate = round(mean(splithalf),2),
-                         splithalf95CI_lower = round(quantile(splithalf, c(.025), names = F),2),
-                         splithalf95CI_upper = round(quantile(splithalf, c(.975), names = F),2),
-                         spearmanbrown_estimate = round(mean(spearmanbrown),2),
-                         spearmanbrown95CI_lower = round(quantile(spearmanbrown, c(.025), names = F),2),
-                         spearmanbrown95CI_upper = round(quantile(spearmanbrown, c(.975), names = F),2)  ) %>%
+                         splithalf_estimate = round(mean(splithalf), nDec),
+                         splithalf95CI_lower = round(quantile(splithalf, c(.025), names = F), nDec),
+                         splithalf95CI_upper = round(quantile(splithalf, c(.975), names = F), nDec),
+                         spearmanbrown_estimate = round(mean(spearmanbrown), nDec),
+                         spearmanbrown95CI_lower = round(quantile(spearmanbrown, c(.025), names = F), nDec),
+                         spearmanbrown95CI_upper = round(quantile(spearmanbrown, c(.975), names = F), nDec)  ) %>%
         as.data.frame()
     }
 
@@ -634,12 +636,12 @@ splithalf <- function(data,
 
       splithalf2 <- splithalf %>%
         dplyr::summarise(n = mean(n),
-                         splithalf_estimate = round(mean(splithalf),2),
-                         splithalf95CI_lower = round(quantile(splithalf, c(.025), names = F),2),
-                         splithalf95CI_upper = round(quantile(splithalf, c(.975), names = F),2),
-                         spearmanbrown_estimate = round(mean(spearmanbrown),2),
-                         spearmanbrown95CI_lower = round(quantile(spearmanbrown, c(.025), names = F),2),
-                         spearmanbrown95CI_upper = round(quantile(spearmanbrown, c(.975), names = F),2)  ) %>%
+                         splithalf_estimate = round(mean(splithalf), nDec),
+                         splithalf95CI_lower = round(quantile(splithalf, c(.025), names = F), nDec),
+                         splithalf95CI_upper = round(quantile(splithalf, c(.975), names = F), nDec),
+                         spearmanbrown_estimate = round(mean(spearmanbrown), nDec),
+                         spearmanbrown95CI_lower = round(quantile(spearmanbrown, c(.025), names = F), nDec),
+                         spearmanbrown95CI_upper = round(quantile(spearmanbrown, c(.975), names = F), nDec)  ) %>%
         as.data.frame()
 
       splithalf2 <- cbind(condition = "change score", splithalf2)
